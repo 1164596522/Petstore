@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf147.dao.PetOrderMapper">
+  <resultMap id="BaseResultMap" type="com.nf147.entity.PetOrder">
+    <id column="order_id" jdbcType="INTEGER" property="order_id" />
+    <result column="pet_id" jdbcType="INTEGER" property="pet_id" />
+    <result column="order_quantity" jdbcType="INTEGER" property="order_quantity" />
+    <result column="order_shipDate" jdbcType="TIMESTAMP" property="order_shipDate" />
+    <result column="order_status" jdbcType="VARCHAR" property="order_status" />
+    <result column="order_complete" jdbcType="BIT" property="order_complete" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pet_order
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nf147.entity.PetOrder">
+    insert into pet_order (order_id, pet_id, order_quantity, 
+      order_shipDate, order_status, order_complete
+      )
+    values (#{order_id,jdbcType=INTEGER}, #{pet_id,jdbcType=INTEGER}, #{order_quantity,jdbcType=INTEGER}, 
+      #{order_shipDate,jdbcType=TIMESTAMP}, #{order_status,jdbcType=VARCHAR}, #{order_complete,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.nf147.entity.PetOrder">
+    update pet_order
+    set pet_id = #{pet_id,jdbcType=INTEGER},
+      order_quantity = #{order_quantity,jdbcType=INTEGER},
+      order_shipDate = #{order_shipDate,jdbcType=TIMESTAMP},
+      order_status = #{order_status,jdbcType=VARCHAR},
+      order_complete = #{order_complete,jdbcType=BIT}
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select order_id, pet_id, order_quantity, order_shipDate, order_status, order_complete
+    from pet_order
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select order_id, pet_id, order_quantity, order_shipDate, order_status, order_complete
+    from pet_order
+  </select>
+  <select id="stateQueryInventory" parameterType="com.nf147.entity.PetOrder">
+    select order_id, pet_id, order_quantity, order_shipDate, order_status, order_complete
+    from pet_order
+    where order_status = #{order_status,jdbcType=VARCHAR},
+  </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf147.dao.PetCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.nf147.entity.PetCategory">
+    <id column="category_id" jdbcType="INTEGER" property="category_id" />
+    <result column="category_name" jdbcType="VARCHAR" property="category_name" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pet_category
+    where category_id = #{category_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nf147.entity.PetCategory">
+    insert into pet_category (category_id, category_name)
+    values (#{category_id,jdbcType=INTEGER}, #{category_name,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.nf147.entity.PetCategory">
+    update pet_category
+    set category_name = #{category_name,jdbcType=VARCHAR}
+    where category_id = #{category_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select category_id, category_name
+    from pet_category
+    where category_id = #{category_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select category_id, category_name
+    from pet_category
+  </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf147.dao.PetPetMapper">
+  <resultMap id="BaseResultMap" type="com.nf147.entity.PetPet">
+    <id column="pet_id" jdbcType="INTEGER" property="pet_id" />
+    <result column="pet_category" jdbcType="INTEGER" property="pet_category" />
+    <result column="pet_name" jdbcType="VARCHAR" property="pet_name" />
+    <result column="pet_tags" jdbcType="INTEGER" property="pet_tags" />
+    <result column="photo_urls" jdbcType="VARCHAR" property="photo_urls" />
+    <result column="pet_status" jdbcType="VARCHAR" property="pet_status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pet_pet
+    where pet_id = #{pet_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nf147.entity.PetPet">
+    insert into pet_pet (pet_id, pet_category, pet_name,
+      pet_tags, photo_urls, pet_status
+      )
+    values (#{pet_id,jdbcType=INTEGER}, #{pet_category,jdbcType=INTEGER}, #{pet_name,jdbcType=VARCHAR},
+      #{pet_tags,jdbcType=INTEGER}, #{photo_urls,jdbcType=VARCHAR}, #{pet_status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.nf147.entity.PetPet">
+    update pet_pet
+    set pet_category = #{pet_category,jdbcType=INTEGER},
+      pet_name = #{pet_name,jdbcType=VARCHAR},
+      pet_tags = #{pet_tags,jdbcType=INTEGER},
+      photo_urls = #{photo_urls,jdbcType=VARCHAR},
+      pet_status = #{pet_status,jdbcType=VARCHAR}
+    where pet_id = #{pet_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select pet_id, pet_category, pet_name, pet_tags, photo_urls, pet_status
+    from pet_pet
+    where pet_id = #{pet_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select pet_id, pet_category, pet_name, pet_tags, photo_urls, pet_status
+    from pet_pet
+  </select>
+  <select id="findByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select pet_id, pet_category, pet_name, pet_tags, photo_urls, pet_status
+    from pet_pet
+    where pet_status = #{pet_status,jdbcType=VARCHAR}
+  </select>
+  <update id="updatePetByForm" parameterType="com.nf147.entity.PetPet">
+  update pet_pet
+  set pet_name = #{pet_name,jdbcType=VARCHAR},
+  pet_status = #{pet_status,jdbcType=VARCHAR}
+  where pet_id = #{pet_id,jdbcType=INTEGER}
+</update>
+  <update id="uploadImage" parameterType="com.nf147.entity.PetPet">
+    update pet_pet
+    set  photo_urls = #{photo_urls,jdbcType=VARCHAR}
+    where pet_id = #{pet_id,jdbcType=INTEGER}
+  </update>
+</mapper>

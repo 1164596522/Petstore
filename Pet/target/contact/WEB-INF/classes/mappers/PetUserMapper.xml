@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf147.dao.PetUserMapper">
+  <resultMap id="BaseResultMap" type="com.nf147.entity.PetUser">
+    <id column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+    <result column="first_name" jdbcType="VARCHAR" property="first_name" />
+    <result column="last_name" jdbcType="VARCHAR" property="last_name" />
+    <result column="user_email" jdbcType="VARCHAR" property="user_email" />
+    <result column="user_password" jdbcType="VARCHAR" property="user_password" />
+    <result column="user_phone" jdbcType="VARCHAR" property="user_phone" />
+    <result column="user_status" jdbcType="INTEGER" property="user_status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pet_user
+    where user_name = #{user_name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nf147.entity.PetUser">
+    insert into pet_user (user_id, user_name, first_name, 
+      last_name, user_email, user_password, 
+      user_phone, user_status)
+    values (#{user_id,jdbcType=INTEGER}, #{user_name,jdbcType=VARCHAR}, #{first_name,jdbcType=VARCHAR}, 
+      #{last_name,jdbcType=VARCHAR}, #{user_email,jdbcType=VARCHAR}, #{user_password,jdbcType=VARCHAR}, 
+      #{user_phone,jdbcType=VARCHAR}, #{user_status,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.nf147.entity.PetUser">
+    update pet_user
+    set user_name = #{user_name,jdbcType=VARCHAR},
+      first_name = #{first_name,jdbcType=VARCHAR},
+      last_name = #{last_name,jdbcType=VARCHAR},
+      user_email = #{user_email,jdbcType=VARCHAR},
+      user_password = #{user_password,jdbcType=VARCHAR},
+      user_phone = #{user_phone,jdbcType=VARCHAR},
+      user_status = #{user_status,jdbcType=INTEGER}
+    where user_name = #{user_name,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select user_id, user_name, first_name, last_name, user_email, user_password, user_phone,
+    user_status
+    from pet_user
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, user_name, first_name, last_name, user_email, user_password, user_phone,
+    user_status
+    from pet_user
+  </select>
+  <update id="updateStatus" parameterType="com.nf147.entity.PetUser">
+    update pet_user
+    set user_status = #{user_status,jdbcType=INTEGER}
+    where user_name = #{user_name,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select id, user_name, first_name, last_name, email, password, phone, user_status
+      from pet_user where user_name = #{user_name,jdbcType=VARCHAR}
+  </select>
+</mapper>
